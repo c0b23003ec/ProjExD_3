@@ -145,7 +145,7 @@ class Score:
     """
     スコアに関するクラス
     """
-    def __init__(self, fonto, color, img):
+    def __init__(self):
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.color = (0, 0, 255)
         self.score = 0
@@ -162,7 +162,7 @@ class Score:
 
 
 def main():
-    score = Score(None, None, None)
+    score = Score()
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
@@ -203,6 +203,7 @@ def main():
                     score.score += 1
                     score.update(screen)
                     
+
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
