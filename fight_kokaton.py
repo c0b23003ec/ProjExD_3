@@ -141,7 +141,28 @@ class Bomb:
         screen.blit(self.img, self.rct)
 
 
+class Score:
+    """
+    スコアに関するクラス
+    """
+    def __init__(self, fonto, color, img):
+        self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        self.color = (0, 0, 255)
+        self.score = 0
+        self.img = self.fonto.render(f"Score: {self.score}", True, self.color)
+        self.rect = self.img.get_rect()
+        self.rect.bottomleft = (100, HEIGHT - 50)
+
+    def update(self, screen: pg.Surface):
+        # スコアの文字列を更新
+        self.img = self.fonto.render(f"Score: {self.score}", True, self.color)
+        screen.blit(self.img, self.rect)
+        
+
+
+
 def main():
+    score = Score(None, None, None)
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
@@ -179,6 +200,9 @@ def main():
                     bombs[i] = None
                     bird.change_img(6, screen)
                     pg.display.update()
+                    score.score += 1
+                    score.update(screen)
+                    
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
@@ -189,6 +213,7 @@ def main():
         if beam is not None:
             beam.update(screen)
         # bomb2.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
